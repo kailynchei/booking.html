@@ -11,14 +11,20 @@
       padding: 20px;
       background-color: #f5f5f5;
     }
+
+    h1, h2 {
+      color: #333;
+      text-align: center;
+    }
+
     .menu-container {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
       max-width: 1200px;
       margin: 0 auto;
-      padding-bottom: 150px; /* space for bottom cart */
     }
+
     .menu-category {
       flex: 1;
       min-width: 300px;
@@ -27,28 +33,30 @@
       border-radius: 10px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
-    h1, h2 {
-      color: #333;
-      text-align: center;
-    }
+
     h2 {
       border-bottom: 2px solid #eee;
       padding-bottom: 10px;
       margin-top: 0;
     }
+
     .menu-item {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       margin-bottom: 15px;
       padding-bottom: 15px;
       border-bottom: 1px dashed #eee;
     }
+
     .item-name {
       font-weight: bold;
     }
+
     .item-price {
       color: #e63946;
     }
+
     .add-to-cart {
       background-color: #4361ee;
       color: white;
@@ -58,58 +66,51 @@
       cursor: pointer;
       transition: background-color 0.3s;
     }
+
     .add-to-cart:hover {
       background-color: #3a56d4;
     }
-    .bottom-bar {
+
+    .cart-toggle-btn {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      background-color: #f77f00;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .cart-container {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background: #fff;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-      padding: 10px 20px;
-      z-index: 1000;
-    }
-    .bottom-bar-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .toggle-cart-btn {
-      background-color: #4361ee;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .cart-popup {
-      display: none;
-      position: fixed;
-      bottom: 60px;
-      left: 0;
-      right: 0;
       background: white;
-      padding: 20px;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.15);
-      z-index: 1000;
-      max-height: 300px;
-      overflow-y: auto;
+      padding: 15px;
+      border-top: 2px solid #eee;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      display: none;
+      z-index: 999;
     }
+
     .cart-item {
       display: flex;
       justify-content: space-between;
       margin-bottom: 10px;
     }
+
     .cart-total {
       font-weight: bold;
       border-top: 2px solid #eee;
       padding-top: 10px;
       margin-top: 10px;
     }
+
     .checkout-btn {
       width: 100%;
       background-color: #4bb543;
@@ -121,14 +122,17 @@
       margin-top: 10px;
       font-weight: bold;
     }
+
     .checkout-btn:hover {
       background-color: #3fa038;
     }
+
     .quantity-controls {
       display: flex;
       align-items: center;
       gap: 5px;
     }
+
     .quantity-btn {
       background-color: #f8f9fa;
       border: 1px solid #ddd;
@@ -137,13 +141,39 @@
       border-radius: 50%;
       cursor: pointer;
     }
+
+    .cart-total-bar {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      background-color: #fff;
+      border-top: 1px solid #ccc;
+      padding: 10px 20px;
+      text-align: right;
+      font-weight: bold;
+      z-index: 998;
+    }
   </style>
 </head>
 <body>
   <h1>MyCafe Menu</h1>
 
+  <button class="cart-toggle-btn" onclick="toggleCart()">Show Cart</button>
+
   <div class="menu-container">
-     <!-- Cupcakes -->
+   <h2>Your Cart</h2>
+        <div id="cart-items"></div>
+        <div class="cart-total">
+            <div>Subtotal: RM<span id="subtotal">0.00</span></div>
+            <div>Delivery Fee: RM5.00</div>
+            <div>Total: RM<span id="total">5.00</span></div>
+        </div>
+        <button class="checkout-btn">Checkout</button>
+    </div>
+
+    <div class="menu-container">
+        <!-- Cupcakes -->
         <div class="menu-category">
             <h2>Cupcakes</h2>
             <div class="menu-item">
@@ -382,11 +412,9 @@
                 <button class="add-to-cart" data-name="Matcha" data-price="5.99">Add</button>
             </div>
         </div>
-    </div>
   </div>
 
-  <!-- Cart Popup -->
-  <div class="cart-popup" id="cart-popup">
+  <div class="cart-container" id="cart-container">
     <h2>Your Cart</h2>
     <div id="cart-items"></div>
     <div class="cart-total">
@@ -394,15 +422,11 @@
       <div>Delivery Fee: RM5.00</div>
       <div>Total: RM<span id="total">5.00</span></div>
     </div>
-    <button class="checkout-btn">Checkout</button>
+    <button class="checkout-btn" onclick="checkout()">Checkout</button>
   </div>
 
-  <!-- Bottom Bar -->
-  <div class="bottom-bar">
-    <div class="bottom-bar-content">
-      <button class="toggle-cart-btn" onclick="toggleCart()">Show Cart</button>
-      <div><strong>Total:</strong> RM<span id="total-bar">5.00</span></div>
-    </div>
+  <div class="cart-total-bar">
+    Total: RM<span id="total-bar">5.00</span>
   </div>
 
   <script>
@@ -412,10 +436,10 @@
     const totalEl = document.getElementById('total');
     const totalBarEl = document.getElementById('total-bar');
     const deliveryFee = 5.00;
+    const cartContainer = document.getElementById('cart-container');
 
     function toggleCart() {
-      const cartPopup = document.getElementById('cart-popup');
-      cartPopup.style.display = cartPopup.style.display === 'block' ? 'none' : 'block';
+      cartContainer.style.display = cartContainer.style.display === 'none' ? 'block' : 'none';
     }
 
     document.querySelectorAll('.add-to-cart').forEach(button => {
@@ -460,9 +484,8 @@
       });
 
       subtotalEl.textContent = subtotal.toFixed(2);
-      const total = subtotal + deliveryFee;
-      totalEl.textContent = total.toFixed(2);
-      totalBarEl.textContent = total.toFixed(2);
+      totalEl.textContent = (subtotal + deliveryFee).toFixed(2);
+      totalBarEl.textContent = (subtotal + deliveryFee).toFixed(2);
     }
 
     function changeQuantity(name, change) {
@@ -470,13 +493,13 @@
       if (item) {
         item.quantity += change;
         if (item.quantity <= 0) {
-          cart = cart.filter(item => item.name !== name);
+          cart = cart.filter(i => i.name !== name);
         }
         updateCart();
       }
     }
 
-    document.querySelector('.checkout-btn').addEventListener('click', () => {
+    function checkout() {
       if (cart.length === 0) {
         alert('Your cart is empty!');
         return;
@@ -492,7 +515,10 @@
       orderSummary += `\nTotal: RM${totalEl.textContent}`;
 
       alert(orderSummary);
-    });
+    }
+
+    // Initialize cart hidden
+    cartContainer.style.display = 'none';
   </script>
 </body>
 </html>

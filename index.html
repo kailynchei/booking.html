@@ -418,8 +418,7 @@
       </div>
     </div>
   </div>
-
-  <div class="cart-container" id="cart-container">
+ <div class="cart-container" id="cart-container">
     <h2>Your Cart</h2>
     <div id="cart-items"></div>
     <div class="cart-total">
@@ -430,16 +429,11 @@
     <button class="checkout-btn" onclick="checkout()">Checkout</button>
   </div>
 
-  <div class="cart-total-bar">
-    Total: RM<span id="total-bar">5.00</span>
-  </div>
-
   <script>
     let cart = [];
     const cartItemsEl = document.getElementById('cart-items');
     const subtotalEl = document.getElementById('subtotal');
     const totalEl = document.getElementById('total');
-    const totalBarEl = document.getElementById('total-bar');
     const cartCountEl = document.getElementById('cart-count');
     const deliveryFee = 5.00;
     const cartContainer = document.getElementById('cart-container');
@@ -493,7 +487,6 @@
 
       subtotalEl.textContent = subtotal.toFixed(2);
       totalEl.textContent = (subtotal + deliveryFee).toFixed(2);
-      totalBarEl.textContent = (subtotal + deliveryFee).toFixed(2);
       cartCountEl.textContent = itemCount;
     }
 
@@ -533,3 +526,4 @@
   </script>
 </body>
 </html>
+ 

@@ -83,6 +83,7 @@
       font-weight: bold;
       cursor: pointer;
       box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      z-index: 999;
     }
 
     .cart-container {
@@ -95,7 +96,9 @@
       border-top: 2px solid #eee;
       box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
       display: none;
-      z-index: 999;
+      z-index: 1000;
+      max-height: 60vh;
+      overflow-y: auto;
     }
 
     .cart-item {
@@ -154,264 +157,266 @@
       font-weight: bold;
       z-index: 998;
     }
+
+    @media (max-width: 768px) {
+      .menu-category {
+        min-width: 100%;
+      }
+      
+      .cart-toggle-btn {
+        bottom: 70px;
+        right: 10px;
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+    }
   </style>
 </head>
 <body>
   <h1>MyCafe Menu</h1>
 
-  <button class="cart-toggle-btn" onclick="toggleCart()">Show Cart</button>
+  <button class="cart-toggle-btn" onclick="toggleCart()">Show Cart (<span id="cart-count">0</span>)</button>
 
   <div class="menu-container">
-   <h2>Your Cart</h2>
-        <div id="cart-items"></div>
-        <div class="cart-total">
-            <div>Subtotal: RM<span id="subtotal">0.00</span></div>
-            <div>Delivery Fee: RM5.00</div>
-            <div>Total: RM<span id="total">5.00</span></div>
+    <!-- Cupcakes -->
+    <div class="menu-category">
+      <h2>Cupcakes</h2>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Chocolate Cupcake</div>
         </div>
-        <button class="checkout-btn">Checkout</button>
+        <div class="item-price">RM5.99</div>
+        <button class="add-to-cart" data-name="Chocolate Cupcake" data-price="5.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Blueberry Cupcake</div>
+        </div>
+        <div class="item-price">RM8.99</div>
+        <button class="add-to-cart" data-name="Blueberry Cupcake" data-price="8.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Vanilla Cupcake</div>
+        </div>
+        <div class="item-price">RM5.99</div>
+        <button class="add-to-cart" data-name="Vanilla Cupcake" data-price="5.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Matcha Cupcake</div>
+        </div>
+        <div class="item-price">RM6.99</div>
+        <button class="add-to-cart" data-name="Matcha Cupcake" data-price="6.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Red Velvet</div>
+        </div>
+        <div class="item-price">RM5.99</div>
+        <button class="add-to-cart" data-name="Red Velvet" data-price="5.99">Add</button>
+      </div>
     </div>
 
-    <div class="menu-container">
-        <!-- Cupcakes -->
-        <div class="menu-category">
-            <h2>Cupcakes</h2>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Chocolate Cupcake</div>
-                </div>
-                <div class="item-price">RM5.99</div>
-                <button class="add-to-cart" data-name="Chocolate Cupcake" data-price="5.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Blueberry Cupcake</div>
-                </div>
-                <div class="item-price">RM8.99</div>
-                <button class="add-to-cart" data-name="Blueberry Cupcake" data-price="8.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Vanilla Cupcake</div>
-                </div>
-                <div class="item-price">RM5.99</div>
-                <button class="add-to-cart" data-name="Vanilla Cupcake" data-price="5.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Matcha Cupcake</div>
-                </div>
-                <div class="item-price">RM6.99</div>
-                <button class="add-to-cart" data-name="Matcha Cupcake" data-price="6.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Red Velvet</div>
-                </div>
-                <div class="item-price">RM5.99</div>
-                <button class="add-to-cart" data-name="Red Velvet" data-price="5.99">Add</button>
-            </div>
+    <!-- Burgers -->
+    <div class="menu-category">
+      <h2>Burgers</h2>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Beef Burger</div>
         </div>
+        <div class="item-price">RM11.99</div>
+        <button class="add-to-cart" data-name="Beef Burger" data-price="11.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Spicy Burger</div>
+        </div>
+        <div class="item-price">RM9.99</div>
+        <button class="add-to-cart" data-name="Spicy Burger" data-price="9.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Chicken Burger</div>
+        </div>
+        <div class="item-price">RM10.99</div>
+        <button class="add-to-cart" data-name="Chicken Burger" data-price="10.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Cheese Burger</div>
+        </div>
+        <div class="item-price">RM12.99</div>
+        <button class="add-to-cart" data-name="Cheese Burger" data-price="12.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Veggie Burger</div>
+        </div>
+        <div class="item-price">RM10.99</div>
+        <button class="add-to-cart" data-name="Veggie Burger" data-price="10.99">Add</button>
+      </div>
+    </div>
 
-        <!-- Burgers -->
-        <div class="menu-category">
-            <h2>Burgers</h2>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Beef Burger</div>
-                </div>
-                <div class="item-price">RM11.99</div>
-                <button class="add-to-cart" data-name="Beef Burger" data-price="11.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Spicy Burger</div>
-                </div>
-                <div class="item-price">RM9.99</div>
-                <button class="add-to-cart" data-name="Spicy Burger" data-price="9.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Chicken Burger</div>
-                </div>
-                <div class="item-price">RM10.99</div>
-                <button class="add-to-cart" data-name="Chicken Burger" data-price="10.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Cheese Burger</div>
-                </div>
-                <div class="item-price">RM12.99</div>
-                <button class="add-to-cart" data-name="Cheese Burger" data-price="12.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Veggie Burger</div>
-                </div>
-                <div class="item-price">RM10.99</div>
-                <button class="add-to-cart" data-name="Veggie Burger" data-price="10.99">Add</button>
-            </div>
+    <!-- Cookies -->
+    <div class="menu-category">
+      <h2>Cookies</h2>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Choco Chip</div>
         </div>
+        <div class="item-price">RM6.99</div>
+        <button class="add-to-cart" data-name="Choco Chip" data-price="6.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Rainbow</div>
+        </div>
+        <div class="item-price">RM6.99</div>
+        <button class="add-to-cart" data-name="Rainbow" data-price="6.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Oatmeal</div>
+        </div>
+        <div class="item-price">RM4.99</div>
+        <button class="add-to-cart" data-name="Oatmeal" data-price="4.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Double Choco</div>
+        </div>
+        <div class="item-price">RM7.99</div>
+        <button class="add-to-cart" data-name="Double Choco" data-price="7.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Peanut Butter</div>
+        </div>
+        <div class="item-price">RM6.99</div>
+        <button class="add-to-cart" data-name="Peanut Butter" data-price="6.99">Add</button>
+      </div>
+    </div>
 
-        <!-- Cookies -->
-        <div class="menu-category">
-            <h2>Cookies</h2>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Choco Chip</div>
-                </div>
-                <div class="item-price">RM6.99</div>
-                <button class="add-to-cart" data-name="Choco Chip" data-price="6.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Rainbow</div>
-                </div>
-                <div class="item-price">RM6.99</div>
-                <button class="add-to-cart" data-name="Rainbow" data-price="6.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Oatmeal</div>
-                </div>
-                <div class="item-price">RM4.99</div>
-                <button class="add-to-cart" data-name="Oatmeal" data-price="4.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Double Choco</div>
-                </div>
-                <div class="item-price">RM7.99</div>
-                <button class="add-to-cart" data-name="Double Choco" data-price="7.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Peanut Butter</div>
-                </div>
-                <div class="item-price">RM6.99</div>
-                <button class="add-to-cart" data-name="Peanut Butter" data-price="6.99">Add</button>
-            </div>
+    <!-- Juices -->
+    <div class="menu-category">
+      <h2>Juices</h2>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Orange Juice (Hot)</div>
         </div>
+        <div class="item-price">RM3.99</div>
+        <button class="add-to-cart" data-name="Orange Juice (Hot)" data-price="3.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Orange Juice (Ice)</div>
+        </div>
+        <div class="item-price">RM4.99</div>
+        <button class="add-to-cart" data-name="Orange Juice (Ice)" data-price="4.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Apple Juice (Hot)</div>
+        </div>
+        <div class="item-price">RM3.99</div>
+        <button class="add-to-cart" data-name="Apple Juice (Hot)" data-price="3.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Apple Juice (Ice)</div>
+        </div>
+        <div class="item-price">RM4.99</div>
+        <button class="add-to-cart" data-name="Apple Juice (Ice)" data-price="4.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Mango Juice (Small)</div>
+        </div>
+        <div class="item-price">RM5.00</div>
+        <button class="add-to-cart" data-name="Mango Juice (Small)" data-price="5.00">Add</button>
+      </div>
+    </div>
 
-        <!-- Juices -->
-        <div class="menu-category">
-            <h2>Juices</h2>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Orange Juice (Hot)</div>
-                </div>
-                <div class="item-price">RM3.99</div>
-                <button class="add-to-cart" data-name="Orange Juice (Hot)" data-price="3.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Orange Juice (Ice)</div>
-                </div>
-                <div class="item-price">RM4.99</div>
-                <button class="add-to-cart" data-name="Orange Juice (Ice)" data-price="4.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Apple Juice (Hot)</div>
-                </div>
-                <div class="item-price">RM3.99</div>
-                <button class="add-to-cart" data-name="Apple Juice (Hot)" data-price="3.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Apple Juice (Ice)</div>
-                </div>
-                <div class="item-price">RM4.99</div>
-                <button class="add-to-cart" data-name="Apple Juice (Ice)" data-price="4.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Mango Juice (Small)</div>
-                </div>
-                <div class="item-price">RM5.00</div>
-                <button class="add-to-cart" data-name="Mango Juice (Small)" data-price="5.00">Add</button>
-            </div>
+    <!-- Chicken/Beef -->
+    <div class="menu-category">
+      <h2>Chicken/Beef</h2>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Grilled Chicken</div>
         </div>
+        <div class="item-price">RM39.99</div>
+        <button class="add-to-cart" data-name="Grilled Chicken" data-price="39.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Fried Chicken</div>
+        </div>
+        <div class="item-price">RM12.99</div>
+        <button class="add-to-cart" data-name="Fried Chicken" data-price="12.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">BBQ Chicken</div>
+        </div>
+        <div class="item-price">RM49.99</div>
+        <button class="add-to-cart" data-name="BBQ Chicken" data-price="49.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Beef Steak</div>
+        </div>
+        <div class="item-price">RM18.99</div>
+        <button class="add-to-cart" data-name="Beef Steak" data-price="18.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Beef Rendang</div>
+        </div>
+        <div class="item-price">RM16.99</div>
+        <button class="add-to-cart" data-name="Beef Rendang" data-price="16.99">Add</button>
+      </div>
+    </div>
 
-        <!-- Chicken/Beef -->
-        <div class="menu-category">
-            <h2>Chicken/Beef</h2>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Grilled Chicken</div>
-                </div>
-                <div class="item-price">RM39.99</div>
-                <button class="add-to-cart" data-name="Grilled Chicken" data-price="39.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Fried Chicken</div>
-                </div>
-                <div class="item-price">RM12.99</div>
-                <button class="add-to-cart" data-name="Fried Chicken" data-price="12.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">BBQ Chicken</div>
-                </div>
-                <div class="item-price">RM49.99</div>
-                <button class="add-to-cart" data-name="BBQ Chicken" data-price="49.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Beef Steak</div>
-                </div>
-                <div class="item-price">RM18.99</div>
-                <button class="add-to-cart" data-name="Beef Steak" data-price="18.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Beef Rendang</div>
-                </div>
-                <div class="item-price">RM16.99</div>
-                <button class="add-to-cart" data-name="Beef Rendang" data-price="16.99">Add</button>
-            </div>
+    <!-- Coffees -->
+    <div class="menu-category">
+      <h2>Coffees</h2>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Espresso</div>
         </div>
-
-        <!-- Coffees -->
-        <div class="menu-category">
-            <h2>Coffees</h2>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Espresso</div>
-                </div>
-                <div class="item-price">RM5.99</div>
-                <button class="add-to-cart" data-name="Espresso" data-price="5.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Latte</div>
-                </div>
-                <div class="item-price">RM5.99</div>
-                <button class="add-to-cart" data-name="Latte" data-price="5.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Cappuccino</div>
-                </div>
-                <div class="item-price">RM5.99</div>
-                <button class="add-to-cart" data-name="Cappuccino" data-price="5.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Americano</div>
-                </div>
-                <div class="item-price">RM5.99</div>
-                <button class="add-to-cart" data-name="Americano" data-price="5.99">Add</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <div class="item-name">Matcha</div>
-                </div>
-                <div class="item-price">RM5.99</div>
-                <button class="add-to-cart" data-name="Matcha" data-price="5.99">Add</button>
-            </div>
+        <div class="item-price">RM5.99</div>
+        <button class="add-to-cart" data-name="Espresso" data-price="5.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Latte</div>
         </div>
+        <div class="item-price">RM5.99</div>
+        <button class="add-to-cart" data-name="Latte" data-price="5.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Cappuccino</div>
+        </div>
+        <div class="item-price">RM5.99</div>
+        <button class="add-to-cart" data-name="Cappuccino" data-price="5.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Americano</div>
+        </div>
+        <div class="item-price">RM5.99</div>
+        <button class="add-to-cart" data-name="Americano" data-price="5.99">Add</button>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Matcha</div>
+        </div>
+        <div class="item-price">RM5.99</div>
+        <button class="add-to-cart" data-name="Matcha" data-price="5.99">Add</button>
+      </div>
+    </div>
   </div>
 
   <div class="cart-container" id="cart-container">
@@ -435,6 +440,7 @@
     const subtotalEl = document.getElementById('subtotal');
     const totalEl = document.getElementById('total');
     const totalBarEl = document.getElementById('total-bar');
+    const cartCountEl = document.getElementById('cart-count');
     const deliveryFee = 5.00;
     const cartContainer = document.getElementById('cart-container');
 
@@ -461,10 +467,12 @@
     function updateCart() {
       cartItemsEl.innerHTML = '';
       let subtotal = 0;
+      let itemCount = 0;
 
       cart.forEach(item => {
         const itemTotal = item.price * item.quantity;
         subtotal += itemTotal;
+        itemCount += item.quantity;
 
         const cartItemEl = document.createElement('div');
         cartItemEl.className = 'cart-item';
@@ -486,6 +494,7 @@
       subtotalEl.textContent = subtotal.toFixed(2);
       totalEl.textContent = (subtotal + deliveryFee).toFixed(2);
       totalBarEl.textContent = (subtotal + deliveryFee).toFixed(2);
+      cartCountEl.textContent = itemCount;
     }
 
     function changeQuantity(name, change) {
@@ -515,10 +524,12 @@
       orderSummary += `\nTotal: RM${totalEl.textContent}`;
 
       alert(orderSummary);
+      // In a real app, you would send this to your server
     }
 
     // Initialize cart hidden
     cartContainer.style.display = 'none';
+    updateCart();
   </script>
 </body>
 </html>
